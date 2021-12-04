@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
-
 
 import pandas as pd
 import numpy as np
@@ -27,16 +25,12 @@ df1.fillna(0, inplace=True)
     #print(df1)
 
 
-# In[297]:
-
 
 #compare ref_1 to call_1 and record 1 for every mismatch or 0 if the nt readings match
 df1.insert(6, 'mismatch_1', np.where(df1['ref_1'] != df1['call_1'], 1, 0)) 
 #compare ref_2 to call_2 and record 1 for every mismatch or 0 if the nt readings match
 df1['mismatch_2'] = np.where(df1['ref_2'] != df1['call_2'], 1, 0) 
 
-
-# In[298]:
 
 
 #calculate error for both cycles and total error for biochem1
@@ -48,8 +42,6 @@ biochem1_totalerror = (sum(df1['mismatch_1']) + sum(df1['mismatch_2']))/(2*len(d
 
 print(biochem1_error1, biochem1_error2, biochem1_totalerror)
 
-
-# In[309]:
 
 
 #Biochem 2
@@ -74,14 +66,10 @@ df2['call_2'] = df2['call_2'].replace(mydict)
 #df2
 
 
-# In[310]:
-
 
 df2.insert(6, 'mismatch_1', np.where(df2['ref_1'] != df2['call_1'], 1, 0))
 df2['mismatch_2'] = np.where(df2['ref_2'] != df2['call_2'], 1, 0)
 
-
-# In[311]:
 
 
 #calculate error for both cycles and total error for biochem1
@@ -93,8 +81,6 @@ biochem_2_totalerror = (sum(df2['mismatch_1']) + sum(df2['mismatch_2']))/(2*len(
 
 print(biochem_2_error_1, biochem_2_error_2, biochem_2_totalerror)
 
-
-# In[312]:
 
 
 ##Further Analysis
@@ -108,8 +94,6 @@ percent_nans4 = (sum(np.where(df2['call_2'] == 'N', 1, 0)))/len(df2['ref_2'])*10
 
 print(percent_nans1, percent_nans2 ,percent_nans3 ,percent_nans4) #both cycles of both biochemistries return 2% N's, so this is not a factor that contributes to varying accuracies between two methods of sequencing
 
-
-# In[474]:
 
 
 ###generate summary chart for biochemistry 1
@@ -195,8 +179,6 @@ print(summary1)
 
 
 
-# In[475]:
-
 
 ###generate summary chart for biochemistry 2
 ##find average signal intensity values for correct base calls
@@ -263,10 +245,4 @@ total_counts = df2['ref_1'].value_counts() + df2['ref_2'].value_counts()
 summary2['total_counts'] = total_counts.values
 summary2.to_csv('summary2.csv', index=False)
 print(summary2)
-
-
-# In[ ]:
-
-
-
 
